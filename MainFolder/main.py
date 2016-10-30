@@ -1,5 +1,6 @@
 import pygame
 import sys
+from math import cos
 from Vector2 import Vector2
 from Circles import Circles
 from GenerateMap import GameMap
@@ -86,10 +87,9 @@ while(True):
                         sys.exit()
 
         camera.x = pygame.mouse.get_pos()[0]
-        camera.y = pygame.mouse.get_pos()[1]
+        camera.y = pygame.mouse.get_pos()[1] + 10*math.cos(pygame.time.get_ticks())
         for c in listOfCircles:
                 c.draw(screen, camera)
-
         for k in gameMap.mapOfLocations.map.keys():
                 text = font.render(gameMap.mapOfLocations.map[k], 1, (255, 255, 255))
                 screen.blit(text, (k.x - text.get_width()/2 - camera.x, k.y - text.get_height()/2 - camera.y))
