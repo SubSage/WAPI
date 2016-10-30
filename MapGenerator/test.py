@@ -1,3 +1,3 @@
 import wikipedia
 
-print wikipedia.page("Adolf Hitler").content
+print wikipedia.page("Genghis Khan").content
