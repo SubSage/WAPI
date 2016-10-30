@@ -1,7 +1,7 @@
 import json
 from watson_developer_cloud import AlchemyLanguageV1
 
-alchemy_language = AlchemyLanguageV1(api_key='d6d5a86057cd102193772643841b7bf4f5231bda')
+alchemy_language = AlchemyLanguageV1(api_key="e0cd161378deaeff0567c6a3e0c9c3a3953f20b9")
 
 class Watson:
     #takes a url and returns a json document with the entities mentioned
