@@ -24,7 +24,12 @@ class Things:
 		self.s = None
 
 
-
+#####
+#
+#	The heart of the game. Greedy algorithm that builds the largest possible list of people and cities
+#	Uses IBM Watson to generate the locations and people that will populate the game.
+#
+######
 class GameMap:
 	def __init__(self, villain, amt_loc, amt_people, widthAndHeight):
 		self.villain = villain	#String containing the name of the villain
@@ -95,12 +100,12 @@ class GameMap:
 		places = self.heapOfLocations.getNLargest(self.max_loca)
 
 		partition = self.widthAndHeight.x/(radius + len(places))
-		min_range = 0
+		min_range = radius
 		for place in places:
 			max_range = min_range + partition
-			x = random.randrange(min_range, max_range)
-			y = random.randrange(0, self.widthAndHeight.y)
-			min_range += max_range + radius
+			x = random.randrange(min_range, max_range+1250)
+			y = random.randrange(radius, self.widthAndHeight.y+450)
+			min_range += partition
 
 			v = Vector2(x, y)
 			self.mapOfLocations.addToMap(place.name, v)

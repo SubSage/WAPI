@@ -15,6 +15,15 @@ def LoadingScreen(state):
                 return "Rendering..."
 
 ZONE_RADIUS = 100
+FURTHEST_UP = 0
+FURTHEST_DOWN = 0
+FURTHEST_LEFT = 0
+FURTHEST_RIGHT = 0
+X_OFFSET = 0
+Y_OFFSET = 0
+
+camera = Vector2(0, 0)
+
 pygame.init()
 infoObject = pygame.display.Info()
 screen = pygame.display.set_mode((infoObject.current_w, infoObject.current_h), pygame.FULLSCREEN)
@@ -30,7 +39,7 @@ pygame.display.flip()
 screen.fill((0,0,0))
 
 
-gameMap = GameMap("Vlad the Impaler", 20, 5, Vector2(100 + screen_w, 100 + screen_h))
+gameMap = GameMap("Voldemort", 10, 5, Vector2(100 + screen_w, 100 + screen_h))
 gameMap.chooseCities(gameMap.villain)
 
 screen.fill((0,0,0))
@@ -65,8 +74,8 @@ listOfPlaces = []
 listOfCoordinates = []
 for k in gameMap.mapOfLocations.map.keys():
         listOfCircles += [Circles(60, k)]
-
 while(True):
+        screen.fill((0,0,0))
         pygame.event.pump()
         for evt in pygame.event.get():
                 if evt.type == pygame.QUIT:
@@ -76,13 +85,14 @@ while(True):
                         pygame.quit()
                         sys.exit()
 
-        screen.fill((0,0,0))
+        camera.x = pygame.mouse.get_pos()[0]
+        camera.y = pygame.mouse.get_pos()[1]
         for c in listOfCircles:
-                c.draw(screen)
+                c.draw(screen, camera)
 
         for k in gameMap.mapOfLocations.map.keys():
                 text = font.render(gameMap.mapOfLocations.map[k], 1, (255, 255, 255))
-                screen.blit(text, (k.x - text.get_width()/2, k.y - text.get_height()/2))
+                screen.blit(text, (k.x - text.get_width()/2 - camera.x, k.y - text.get_height()/2 - camera.y))
         pygame.display.flip()
 
 

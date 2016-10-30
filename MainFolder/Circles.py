@@ -5,7 +5,7 @@ class Circles:
 		self.radius = r
 		self.coords = c
 
-	def draw(self, surf):
-		pygame.draw.circle(surf, (0,0,0), (self.coords.x, self.coords.y), self.radius, 0)
-		pygame.draw.circle(surf, (255,255,255), (self.coords.x, self.coords.y), self.radius, 2)
+	def draw(self, surf, camera):
+		pygame.draw.circle(surf, (0,0,0), (self.coords.x - camera.x, self.coords.y - camera.y), self.radius, 0)
+		pygame.draw.circle(surf, (255,255,255), (self.coords.x - camera.x, self.coords.y - camera.y), self.radius, 2)
 	
