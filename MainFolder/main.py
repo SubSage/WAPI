@@ -1,6 +1,5 @@
 import pygame
 import sys
-from math import cos
 from Vector2 import Vector2
 from Circles import Circles
 from GenerateMap import GameMap
@@ -50,7 +49,10 @@ pygame.display.flip()
 
 gameMap.addLocationsToMap(ZONE_RADIUS)
 
+listOfPlaces = []
+
 for l in gameMap.mapOfLocations.map.values():
+        listOfPlaces += [l]
         print l
 
 screen.fill((0,0,0))
@@ -71,10 +73,11 @@ pygame.display.flip()
 
 
 listOfCircles = []
-listOfPlaces = []
-listOfCoordinates = []
 for k in gameMap.mapOfLocations.map.keys():
         listOfCircles += [Circles(60, k)]
+
+
+index = 0;
 while(True):
         screen.fill((0,0,0))
         pygame.event.pump()
@@ -87,11 +90,20 @@ while(True):
                         sys.exit()
 
         camera.x = pygame.mouse.get_pos()[0]
-        camera.y = pygame.mouse.get_pos()[1] + 10*math.cos(pygame.time.get_ticks())
+        camera.y = pygame.mouse.get_pos()[1]
         for c in listOfCircles:
                 c.draw(screen, camera)
+
+
+        
         for k in gameMap.mapOfLocations.map.keys():
-                text = font.render(gameMap.mapOfLocations.map[k], 1, (255, 255, 255))
+                if index < len(gameMap.listOfPeople):
+                        peopleHere = gameMap.listOfPeople[index]
+                        index += 1
+                else:
+                        peopleHere = "none"
+                description = gameMap.mapOfLocations.map[k] + "\n People here:\n" + peopleHere
+                text = font.render(description, 1, (255, 255, 255))
                 screen.blit(text, (k.x - text.get_width()/2 - camera.x, k.y - text.get_height()/2 - camera.y))
         pygame.display.flip()
 
