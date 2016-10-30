@@ -6,9 +6,11 @@ alchemy_language = AlchemyLanguageV1(api_key='d6d5a86057cd102193772643841b7bf4f5
 #takes a url and returns a json document with the entities mentioned
 def pull_entities ( page ):
     return json.loads(json.dumps(alchemy_language.entities(
-    url = page,
-    sentiment=1),
-    indent=2));
+    url = page)));
+
+def pull_entities_from_text ( words ):
+    return json.loads(json.dumps(alchemy_language.entities(
+    text = words)));
 
 #takes a json document (e.g. from pull_entities) and returns a dictionary of mentioned
 #"People" and their associated relevances to the main topic
